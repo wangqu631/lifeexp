@@ -13,8 +13,8 @@
 ## 安装
 
 ```r
-# 从 GitHub（把 <用户名> 换成仓库所有者）
-remotes::install_github("<用户名>/lifeexp")
+# 从 GitHub
+remotes::install_github("wangqu631/lifeexp")
 
 # 或者用本地下载的安装文件
 install.packages("lifeexp_0.1.0.tar.gz", repos = NULL, type = "source")  # 源码包，跨平台
