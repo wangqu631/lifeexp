@@ -1,5 +1,40 @@
 # lifeexp
 
+Six-step analysis of the 1977 US state life-expectancy data (`datasets::state.x77`):
+read the table, scatterplot matrix, linear model, AIC optimisation with an ANOVA
+check, standardised-coefficient forest plot with two-tailed p-values, and the
+expected lifetime of Hawaii together with its confidence and prediction intervals.
+
+```r
+remotes::install_github("wangqu631/lifeexp", ref = "cran")  # this branch
+remotes::install_github("wangqu631/lifeexp")                # main branch
+library(lifeexp)
+life76()
+```
+
+| function | purpose | returns |
+|---|---|---|
+| `life_data()` | tidy `state.x77` | 50 x 8 data frame |
+| `life_step(data, trace)` | full model, `step()`, `anova` | `list(full, best, anova)` |
+| `life_forest(best, data)` | standardised-coefficient forest plot | data frame of beta / CI / p |
+| `life_hawaii(best, data, state)` | confidence and prediction intervals | 3 x 2 matrix |
+| `life76(data, state)` | all six steps at once | list of the above |
+
+Results: the AIC-optimal model is `Life.Exp ~ Population + Murder + HS.Grad + Frost`
+(AIC 121.71 -> 115.73, `anova` p = 0.9993). Standardised betas: Murder -0.825
+(p = 1.77e-10), HS.Grad +0.280 (p = 0.00297), Frost -0.230 (p = 0.018),
+Population +0.167 (p = 0.052). Hawaii: **72.09317** years, confidence interval
+[71.38335, 72.80299], prediction interval [70.47917, 73.70717].
+
+> This `cran` branch is the CRAN-ready variant: every user-visible string in the
+> R code is ASCII (English plot label and English column names), so
+> `R CMD check --as-cran` reports 0 errors and 0 warnings. The `main` branch
+> keeps the Chinese plot labels and column names.
+
+---
+
+# lifeexp（中文版说明）
+
 用 R 内置数据集 `state.x77`（1977 年美国 50 个州）分析**预期寿命的影响因素**，
 六步一次跑完：
 
@@ -10,10 +45,9 @@
 5. 分析回归系数 —— 标准化 β 森林图 + 双尾 p 值
 6. 区间估计 —— Hawaii 的预期寿命、条件置信区间与预测区间
 
-## 安装
+## 安装（中文版在 main 分支）
 
 ```r
-# 从 GitHub
 remotes::install_github("wangqu631/lifeexp")
 
 # 或者用本地下载的安装文件
@@ -42,14 +76,6 @@ fit <- life_step()                  # 3+4 建模、AIC 优化（打印逐步 AIC
 life_forest(fit$best)               # 5 森林图，返回标准化 β / 95% CI / 双尾 p 值
 life_hawaii(fit$best)               # 6 Hawaii 的置信区间与预测区间
 ```
-
-| 函数 | 作用 | 返回 |
-|---|---|---|
-| `life_data()` | 整理 `state.x77` | 50×8 data frame |
-| `life_step(data, trace)` | 全模型 → `step()` → `anova` | `list(full, best, anova)` |
-| `life_forest(best, data)` | 标准化系数森林图 | 变量 / β / CI / p 的 data frame |
-| `life_hawaii(best, data, state)` | 条件置信区间与预测区间 | 3×2 矩阵 |
-| `life76(data, state)` | 一步跑完六步 | 上面四样的列表 |
 
 帮助页：`?life76`、`?life_forest`、`?lifeexp`。
 

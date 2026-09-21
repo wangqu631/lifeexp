@@ -1,8 +1,8 @@
 Package: lifeexp
 Type: Package
 Title: Six-Step Analysis of 1977 US State Life Expectancy
-Version: 0.1.0
-Authors@R: person("DSH", "Helper", email = "dsh@example.com", role = c("aut", "cre"))
+Version: 0.1.1
+Authors@R: person("wangqu631", email = "284178905+wangqu631@users.noreply.github.com", role = c("aut", "cre"))
 Description: A self-contained toolkit for the six-step analysis of the built-in
     state.x77 data set: read the table, draw a scatterplot matrix, fit a linear
     model for life expectancy, optimise it by AIC with an ANOVA check, report the
@@ -13,3 +13,5 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Depends: R (>= 4.0)
 Imports: datasets, graphics, stats
+URL: https://github.com/wangqu631/lifeexp
+BugReports: https://github.com/wangqu631/lifeexp/issues

@@ -1,17 +1,24 @@
-#' 标准化系数森林图
+#' Standardised-coefficient forest plot
 #'
-#' 先把所有变量标准化再重新拟合, 得到的就是标准化 β —— 量纲统一, 才能放在
-#' 同一张森林图上比较 (原始系数里 Population 是 1e-5 量级、Murder 是 1e-1
-#' 量级, 直接画会全挤在 0 上)。误差线为 95% 置信区间, 虚线为 0 (无效应)。
+#' All variables are standardised before refitting, so the plotted coefficients
+#' are standardised betas. In the original units `Population` is of order 1e-5
+#' and `Murder` of order 1e-1, so a forest plot of the raw coefficients would
+#' squeeze almost every other variable onto zero. Error bars are 95% confidence
+#' intervals, the dashed line marks zero (no effect).
 #'
-#' @param best `lm` 对象, 一般取 `life_step()$best`。
-#' @param data 拟合 `best` 所用的数据。
-#' @param xlab x 轴标题。
-#' @return 不可见地返回 data frame: 变量、标准化 β、95% CI 上下限、双尾 p 值。
+#' 中文说明: 先把所有变量标准化再重新拟合, 得到的就是标准化 β —— 量纲统一, 才能放在
+#' 同一张森林图上比较。误差线为 95% 置信区间, 虚线为 0 (无效应)。
+#'
+#' @param best An `lm` object, usually `life_step()$best`.
+#' @param data The data `best` was fitted to.
+#' @param xlab Label for the x axis.
+#' @return Invisibly, a data frame with the columns `term`, `beta`
+#'   (standardised), `lower`, `upper` (95% confidence limits) and `p`
+#'   (two-tailed p-value).
 #' @examples
 #' life_forest(life_step(trace = FALSE)$best)
 #' @export
-life_forest <- function(best, data = life_data(), xlab = "标准化 β (95% CI)") {
+life_forest <- function(best, data = life_data(), xlab = "Standardised beta (95% CI)") {
   ms <- stats::update(best, data = as.data.frame(scale(data)))
   cf <- summary(ms)$coefficients[-1, , drop = FALSE]
   ci <- stats::confint(ms)[-1, , drop = FALSE]
@@ -22,7 +29,6 @@ life_forest <- function(best, data = life_data(), xlab = "标准化 β (95% CI)"
   graphics::segments(ci[, 1], i, ci[, 2], i, lwd = 2)
   graphics::axis(2, i, rownames(cf), las = 1)
   graphics::abline(v = 0, lty = 2)
-  invisible(data.frame(变量 = rownames(cf), 标准化beta = cf[, 1],
-                       CI下限 = ci[, 1], CI上限 = ci[, 2], 双尾p值 = cf[, 4],
-                       row.names = NULL))
+  invisible(data.frame(term = rownames(cf), beta = cf[, 1], lower = ci[, 1],
+                       upper = ci[, 2], p = cf[, 4], row.names = NULL))
 }

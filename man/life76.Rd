@@ -1,26 +1,32 @@
 \name{life76}
 \encoding{UTF-8}
 \alias{life76}
-\title{一步跑完六步作业}
+\title{Run All Six Steps of the Analysis}
 \usage{
 life76(data = life_data(), state = "Hawaii")
 }
 \arguments{
-  \item{data}{data frame, 默认 \code{\link{life_data}()}。}
-  \item{state}{要预测的州, 默认 \code{"Hawaii"}。}
+  \item{data}{A data frame, default \code{\link{life_data}()}.}
+  \item{state}{State to predict, default \code{"Hawaii"}.}
 }
 \value{
-不可见地返回列表: \code{data}, \code{fit}, \code{coef}, \code{interval}。
+Invisibly, a list with \code{data}, \code{fit}, \code{coef} and
+\code{interval}.
 }
 \description{
-按作业顺序依次执行六步:
+Runs the six steps in order:
 \enumerate{
-  \item 见表 (\code{\link{life_data}});
-  \item 散点图矩阵 (Life.Exp 在第 1 位, 所以每张小图的 y 轴都是它);
-  \item 建模 + \item AIC 优化与 anova 检验 (\code{\link{life_step}});
-  \item 回归系数 (双尾 p 值) 与森林图 (\code{\link{life_forest}});
-  \item Hawaii 的预期寿命、条件置信区间与预测区间 (\code{\link{life_hawaii}})。
+  \item read the table (\code{\link{life_data}});
+  \item draw the scatterplot matrix, with \code{Life.Exp} first so that every
+        panel has it on the y axis;
+  \item fit the model and optimise it by AIC with an ANOVA check
+        (\code{\link{life_step}});
+  \item report the regression coefficients with two-tailed p-values and draw
+        the forest plot (\code{\link{life_forest}});
+  \item estimate the expected lifetime of Hawaii with confidence and prediction
+        intervals (\code{\link{life_hawaii}}).
 }
+中文说明: 按作业顺序一次跑完六步, 绘图区依次给出散点图矩阵和森林图。
 }
 \examples{
 \donttest{life76()}

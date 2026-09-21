@@ -1,23 +1,26 @@
 \name{life_hawaii}
 \encoding{UTF-8}
 \alias{life_hawaii}
-\title{Hawaii 的预期寿命: 条件置信区间与预测区间}
+\title{Expected Lifetime of a State with Confidence and Prediction Intervals}
 \usage{
 life_hawaii(best, data = life_data(), state = "Hawaii")
 }
 \arguments{
-  \item{best}{\code{lm} 对象, 一般取 \code{life_step()$best}。}
-  \item{data}{拟合 \code{best} 所用的数据。}
-  \item{state}{州名, 默认 \code{"Hawaii"}。}
+  \item{best}{An \code{lm} object, usually \code{life_step()$best}.}
+  \item{data}{The data \code{best} was fitted to.}
+  \item{state}{Name of the state, default \code{"Hawaii"}.}
 }
 \value{
-3 行 2 列矩阵: 行是 \code{fit} / \code{lwr} / \code{upr},
-列是条件置信区间与预测区间。
+A 3 x 2 matrix: rows \code{fit}, \code{lwr} and \code{upr}; columns
+\code{confidence} (interval for the expected value) and \code{prediction}
+(interval for one further state). For Hawaii the fit is 72.09317 years.
 }
 \description{
-用 AIC 优化后的模型估计原数据中某个州的预期寿命, 同时给出
-\code{interval = "confidence"} 的条件置信区间 (均值的区间) 与
-\code{interval = "prediction"} 的预测区间 (单个州的区间)。
+Estimates the life expectancy of a state with the AIC-optimal model and returns
+both \code{interval = "confidence"}, the conditional interval for the expected
+value, and \code{interval = "prediction"}, the interval for a single further
+state.
+中文说明: 用优化后的模型估计某州预期寿命, 同时给出条件置信区间与预测区间。
 }
 \examples{
 life_hawaii(life_step(trace = FALSE)$best)
