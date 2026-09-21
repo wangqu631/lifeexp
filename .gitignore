@@ -1,0 +1,12 @@
+# R 运行时会生成的中间文件
+.Rhistory
+.RData
+.Rproj.user/
+.Renviron
+Rplots.pdf
+
+# 打包/检查产物
+*.tar.gz
+*.zip
+*.Rcheck/
+lifeexp.Rproj

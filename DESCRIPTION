@@ -1,0 +1,15 @@
+Package: lifeexp
+Type: Package
+Title: Six-Step Analysis of 1977 US State Life Expectancy
+Version: 0.1.0
+Authors@R: person("DSH", "Helper", email = "dsh@example.com", role = c("aut", "cre"))
+Description: A self-contained toolkit for the six-step analysis of the built-in
+    state.x77 data set: read the table, draw a scatterplot matrix, fit a linear
+    model for life expectancy, optimise it by AIC with an ANOVA check, report the
+    regression coefficients as a standardised forest plot with two-tailed
+    p-values, and compute the conditional confidence and prediction intervals for
+    Hawaii (72.09317 years).
+License: MIT + file LICENSE
+Encoding: UTF-8
+Depends: R (>= 4.0)
+Imports: datasets, graphics, stats
